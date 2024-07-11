@@ -47,3 +47,6 @@ public class Playlist {
     private List<PlaylistTrack> playlistTracks;
     // Getters and setters
 }
+```
+### ERD
+![image](https://github.com/Xandr070/MusicService/assets/129608390/42b41a86-f58f-43f6-8aba-c331f82d9eb5)
