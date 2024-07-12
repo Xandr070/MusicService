@@ -8,9 +8,7 @@ import java.util.List;
 @Table(name = "albums")
 public class Album {
 
-    public Album() {
-
-    }
+    protected Album() {}
 
     public Album(Long id, String title, String releaseDate, String genre, String description, String tags, Artist artist, List<Track> tracks) {
         this.id = id;

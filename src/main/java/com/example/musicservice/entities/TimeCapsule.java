@@ -7,9 +7,7 @@ import java.util.List;
 @Table(name = "time_capsules")
 public class TimeCapsule {
 
-    public TimeCapsule() {
-
-    }
+    protected TimeCapsule() {}
 
     public TimeCapsule(Long id, String name, String description, String creationDate, String deliveryDate, User user) {
         this.id = id;

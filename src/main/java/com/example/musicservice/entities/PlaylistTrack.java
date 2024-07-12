@@ -16,9 +16,7 @@ public class PlaylistTrack {
     private Playlist playlist;
     private Track track;
 
-    public PlaylistTrack() {
-
-    }
+    protected PlaylistTrack() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

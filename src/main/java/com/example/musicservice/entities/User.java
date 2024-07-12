@@ -16,8 +16,7 @@ public class User {
         this.diary = diary;
     }
 
-    public User() {
-    }
+    protected User() {}
 
     private Long id;
     private String name;

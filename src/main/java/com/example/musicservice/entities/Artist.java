@@ -7,9 +7,7 @@ import java.util.List;
 @Table(name = "artists")
 public class Artist {
 
-    public Artist() {
-
-    }
+    protected Artist() {}
 
     public Artist(Long id, String name, String biography, String genre, String tags, List<Album> albums, List<Track> tracks) {
         this.id = id;

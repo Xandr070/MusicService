@@ -18,9 +18,7 @@ public class Playlist {
         this.tracks = tracks;
     }
 
-    public Playlist() {
-
-    }
+    protected Playlist() {}
 
     private Long id;
     private String title;

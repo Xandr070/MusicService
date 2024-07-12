@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "music_diary")
 public class MusicDiary {
 
-    public MusicDiary() {
-
-    }
+    protected MusicDiary() {}
 
     public MusicDiary(Long id, String entryDate, String note, User user, Track track) {
         this.id = id;
