@@ -12,41 +12,58 @@
 ### Примеры сущностей
 
 ```sql
-@Entity
-@Table(name = "users")
-public class User {
+@MappedSuperclass
+public abstract class BaseEntity {
+
+    protected Long id;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Playlist> playlists;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<TimeCapsule> timeCapsules;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<MusicDiary> diary;
-    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
 ```
 ```sql
 @Entity
-@Table(name = "playlists")
-public class Playlist {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    private String description;
-    private String creationDate;
-    private String tags;
-    private String event;
+@Table(name = "playlist_track")
+public class PlaylistTrack extends BaseEntity {
+
+    private Playlist playlist;
+    private Track track;
+
+    public PlaylistTrack(Playlist playlist, Track track) {
+        this.playlist = playlist;
+        this.track = track;
+    }
+
+    protected PlaylistTrack() {}
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-    private List<PlaylistTrack> playlistTracks;
-    // Getters and setters
+    @JoinColumn(name = "playlist_id")
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "track_id")
+    public Track getTrack() {
+        return track;
+    }
+
+    public void setTrack(Track track) {
+        this.track = track;
+    }
 }
 ```
 ### ERD
-![image](https://github.com/Xandr070/MusicService/assets/129608390/42b41a86-f58f-43f6-8aba-c331f82d9eb5)
+![MusicService](https://github.com/user-attachments/assets/ff00091f-d744-467f-9d88-83ad80a39d29)
+
