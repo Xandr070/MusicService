@@ -4,29 +4,17 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "playlist_track")
-public class PlaylistTrack {
+public class PlaylistTrack extends BaseEntity {
 
-    public PlaylistTrack(Long id, Playlist playlist, Track track) {
-        this.id = id;
+    private Playlist playlist;
+    private Track track;
+
+    public PlaylistTrack(Playlist playlist, Track track) {
         this.playlist = playlist;
         this.track = track;
     }
 
-    private Long id;
-    private Playlist playlist;
-    private Track track;
-
     protected PlaylistTrack() {}
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")

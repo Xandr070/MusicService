@@ -1,15 +1,18 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
-    public User(Long id, String name, List<Playlist> playlists, List<TimeCapsule> timeCapsules, List<MusicDiary> diary) {
-        this.id = id;
+    private String name;
+    private List<Playlist> playlists;
+    private List<TimeCapsule> timeCapsules;
+    private List<MusicDiary> diary;
+
+    public User(String name, List<Playlist> playlists, List<TimeCapsule> timeCapsules, List<MusicDiary> diary) {
         this.name = name;
         this.playlists = playlists;
         this.timeCapsules = timeCapsules;
@@ -17,22 +20,6 @@ public class User {
     }
 
     protected User() {}
-
-    private Long id;
-    private String name;
-    private List<Playlist> playlists;
-    private List<TimeCapsule> timeCapsules;
-    private List<MusicDiary> diary;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

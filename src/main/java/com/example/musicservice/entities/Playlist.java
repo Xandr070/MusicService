@@ -5,39 +5,27 @@ import java.util.List;
 
 @Entity
 @Table(name = "playlists")
-public class Playlist {
+public class Playlist extends BaseEntity {
 
-    public Playlist(Long id, String title, String description, String creationDate, String tags, String event, User user, List<Track> tracks) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.tags = tags;
-        this.event = event;
-        this.user = user;
-        this.tracks = tracks;
-    }
-
-    protected Playlist() {}
-
-    private Long id;
     private String title;
     private String description;
     private String creationDate;
     private String tags;
     private String event;
     private User user;
-    private List<Track> tracks;
+    private List<PlaylistTrack> playlistTracks;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
+    public Playlist(String title, String description, String creationDate, String tags, String event, User user, List<PlaylistTrack> playlistTracks) {
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.tags = tags;
+        this.event = event;
+        this.user = user;
+        this.playlistTracks = playlistTracks;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    protected Playlist() {}
 
     public String getTitle() {
         return title;
@@ -89,17 +77,12 @@ public class Playlist {
         this.user = user;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "playlist_track",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "track_id")
-    )
-    public List<Track> getTracks() {
-        return tracks;
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+    public List<PlaylistTrack> getPlaylistTracks() {
+        return playlistTracks;
     }
 
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
+    public void setPlaylistTracks(List<PlaylistTrack> playlistTracks) {
+        this.playlistTracks = playlistTracks;
     }
 }

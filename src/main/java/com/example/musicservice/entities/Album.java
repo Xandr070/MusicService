@@ -1,17 +1,21 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 @Table(name = "albums")
-public class Album {
+public class Album extends BaseEntity {
 
-    protected Album() {}
+    private String title;
+    private String releaseDate;
+    private String genre;
+    private String description;
+    private String tags;
+    private Artist artist;
+    private List<Track> tracks;
 
-    public Album(Long id, String title, String releaseDate, String genre, String description, String tags, Artist artist, List<Track> tracks) {
-        this.id = id;
+    public Album(String title, String releaseDate, String genre, String description, String tags, Artist artist, List<Track> tracks) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.genre = genre;
@@ -21,24 +25,7 @@ public class Album {
         this.tracks = tracks;
     }
 
-    private Long id;
-    private String title;
-    private String releaseDate;
-    private String genre;
-    private String description;
-    private String tags;
-    private Artist artist;
-    private List<Track> tracks;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    protected Album() {}
 
     public String getTitle() {
         return title;

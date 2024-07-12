@@ -4,33 +4,21 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "music_diary")
-public class MusicDiary {
+public class MusicDiary extends BaseEntity {
 
-    protected MusicDiary() {}
+    private String entryDate;
+    private String note;
+    private User user;
+    private Track track;
 
-    public MusicDiary(Long id, String entryDate, String note, User user, Track track) {
-        this.id = id;
+    public MusicDiary(String entryDate, String note, User user, Track track) {
         this.entryDate = entryDate;
         this.note = note;
         this.user = user;
         this.track = track;
     }
 
-    private Long id;
-    private String entryDate;
-    private String note;
-    private User user;
-    private Track track;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    protected MusicDiary() {}
 
     public String getEntryDate() {
         return entryDate;

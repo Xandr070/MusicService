@@ -5,35 +5,25 @@ import java.util.List;
 
 @Entity
 @Table(name = "time_capsules")
-public class TimeCapsule {
+public class TimeCapsule extends BaseEntity {
 
-    protected TimeCapsule() {}
-
-    public TimeCapsule(Long id, String name, String description, String creationDate, String deliveryDate, User user) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.deliveryDate = deliveryDate;
-        this.user = user;
-    }
-
-    private Long id;
     private String name;
     private String description;
     private String creationDate;
     private String deliveryDate;
     private User user;
+    private List<Track> tracks;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
+    public TimeCapsule(String name, String description, String creationDate, String deliveryDate, User user, List<Track> tracks) {
+        this.name = name;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.deliveryDate = deliveryDate;
+        this.user = user;
+        this.tracks = tracks;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    protected TimeCapsule() {}
 
     public String getName() {
         return name;
@@ -75,5 +65,19 @@ public class TimeCapsule {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "time_capsule_track",
+            joinColumns = @JoinColumn(name = "time_capsule_id"),
+            inverseJoinColumns = @JoinColumn(name = "track_id")
+    )
+    public List<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 }

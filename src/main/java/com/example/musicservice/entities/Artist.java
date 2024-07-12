@@ -5,12 +5,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "artists")
-public class Artist {
+public class Artist extends BaseEntity {
 
-    protected Artist() {}
+    private String name;
+    private String biography;
+    private String genre;
+    private String tags;
+    private List<Album> albums;
+    private List<Track> tracks;
 
-    public Artist(Long id, String name, String biography, String genre, String tags, List<Album> albums, List<Track> tracks) {
-        this.id = id;
+    public Artist(String name, String biography, String genre, String tags, List<Album> albums, List<Track> tracks) {
         this.name = name;
         this.biography = biography;
         this.genre = genre;
@@ -19,23 +23,7 @@ public class Artist {
         this.tracks = tracks;
     }
 
-    private Long id;
-    private String name;
-    private String biography;
-    private String genre;
-    private String tags;
-    private List<Album> albums;
-    private List<Track> tracks;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    protected Artist() {}
 
     public String getName() {
         return name;
