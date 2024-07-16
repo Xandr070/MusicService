@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrackRepository {
+
     Optional<Track> findById(Long id);
+
+    List<Track> findAll();
+
     Track save(Track track);
-    List<Track> findByTitle(String title);
+
+    void deleteById(Long id);
 }

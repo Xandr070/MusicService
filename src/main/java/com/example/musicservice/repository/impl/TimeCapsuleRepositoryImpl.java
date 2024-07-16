@@ -10,11 +10,7 @@ import java.util.Optional;
 @Repository
 public class TimeCapsuleRepositoryImpl implements TimeCapsuleRepository {
 
-    private final GenericRepository<TimeCapsule, Long> genericRepository;
-
-    public TimeCapsuleRepositoryImpl(GenericRepository<TimeCapsule, Long> genericRepository) {
-        this.genericRepository = genericRepository;
-    }
+    private GenericRepository<TimeCapsule, Long> genericRepository;
 
     @Override
     public Optional<TimeCapsule> findById(Long id) {
