@@ -1,11 +1,12 @@
 package com.example.musicservice.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AlbumDTO {
     private Long id;
     private String title;
-    private String releaseDate;
+    private LocalDateTime releaseDate;
     private String genre;
     private String description;
     private String tags;
@@ -28,11 +29,11 @@ public class AlbumDTO {
         this.title = title;
     }
 
-    public String getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 

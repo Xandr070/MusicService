@@ -10,7 +10,6 @@ public class PlaylistDTO {
     private String tags;
     private String event;
     private UserDTO user;
-    private List<PlaylistTrackDTO> playlistTracks;
 
     public Long getId() {
         return id;
@@ -66,13 +65,5 @@ public class PlaylistDTO {
 
     public void setUser(UserDTO user) {
         this.user = user;
-    }
-
-    public List<PlaylistTrackDTO> getPlaylistTracks() {
-        return playlistTracks;
-    }
-
-    public void setPlaylistTracks(List<PlaylistTrackDTO> playlistTracks) {
-        this.playlistTracks = playlistTracks;
     }
 }

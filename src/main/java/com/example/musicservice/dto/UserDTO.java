@@ -7,7 +7,6 @@ public class UserDTO {
     private String name;
     private List<PlaylistDTO> playlists;
     private List<TimeCapsuleDTO> timeCapsules;
-    private List<MusicDiaryDTO> diary;
 
     public Long getId() {
         return id;
@@ -39,13 +38,5 @@ public class UserDTO {
 
     public void setTimeCapsules(List<TimeCapsuleDTO> timeCapsules) {
         this.timeCapsules = timeCapsules;
-    }
-
-    public List<MusicDiaryDTO> getDiary() {
-        return diary;
-    }
-
-    public void setDiary(List<MusicDiaryDTO> diary) {
-        this.diary = diary;
     }
 }

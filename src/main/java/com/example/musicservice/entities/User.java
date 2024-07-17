@@ -10,13 +10,11 @@ public class User extends BaseEntity {
     private String name;
     private List<Playlist> playlists;
     private List<TimeCapsule> timeCapsules;
-    private List<MusicDiary> diary;
 
-    public User(String name, List<Playlist> playlists, List<TimeCapsule> timeCapsules, List<MusicDiary> diary) {
+    public User(String name, List<Playlist> playlists, List<TimeCapsule> timeCapsules) {
         this.name = name;
         this.playlists = playlists;
         this.timeCapsules = timeCapsules;
-        this.diary = diary;
     }
 
     protected User() {}
@@ -45,14 +43,5 @@ public class User extends BaseEntity {
 
     public void setTimeCapsules(List<TimeCapsule> timeCapsules) {
         this.timeCapsules = timeCapsules;
-    }
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public List<MusicDiary> getDiary() {
-        return diary;
-    }
-
-    public void setDiary(List<MusicDiary> diary) {
-        this.diary = diary;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -9,20 +11,20 @@ public class Playlist extends BaseEntity {
 
     private String title;
     private String description;
-    private String creationDate;
+    private LocalDateTime creationDate;
     private String tags;
     private String event;
     private User user;
-    private List<PlaylistTrack> playlistTracks;
+    private List<Track> tracks;
 
-    public Playlist(String title, String description, String creationDate, String tags, String event, User user, List<PlaylistTrack> playlistTracks) {
+    public Playlist(String title, String description, String tags, String event, User user, List<Track> tracks) {
         this.title = title;
         this.description = description;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDateTime.now();
         this.tags = tags;
         this.event = event;
         this.user = user;
-        this.playlistTracks = playlistTracks;
+        this.tracks = tracks;
     }
 
     protected Playlist() {}
@@ -43,11 +45,11 @@ public class Playlist extends BaseEntity {
         this.description = description;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -77,12 +79,17 @@ public class Playlist extends BaseEntity {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-    public List<PlaylistTrack> getPlaylistTracks() {
-        return playlistTracks;
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_track",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "track_id")
+    )
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setPlaylistTracks(List<PlaylistTrack> playlistTracks) {
-        this.playlistTracks = playlistTracks;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 }

@@ -3,8 +3,9 @@ package com.example.musicservice.services.impl;
 import com.example.musicservice.dto.PlaylistDTO;
 import com.example.musicservice.dto.TrackDTO;
 import com.example.musicservice.entities.Playlist;
-import com.example.musicservice.entities.PlaylistTrack;
 import com.example.musicservice.entities.Track;
+import com.example.musicservice.exception.PlaylistNotFoundException;
+import com.example.musicservice.exception.TrackNotFoundException;
 import com.example.musicservice.repository.PlaylistRepository;
 import com.example.musicservice.repository.TrackRepository;
 import com.example.musicservice.services.PlaylistService;
@@ -42,7 +43,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Transactional(readOnly = true)
     public PlaylistDTO getPlaylistById(Long id) {
         Playlist playlist = playlistRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Playlist not found"));
+                .orElseThrow(() -> new PlaylistNotFoundException(id));
         return modelMapper.map(playlist, PlaylistDTO.class);
     }
 
@@ -50,7 +51,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Transactional
     public PlaylistDTO updatePlaylist(Long id, PlaylistDTO playlistDTO) {
         Playlist playlist = playlistRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Playlist not found"));
+                .orElseThrow(() -> new PlaylistNotFoundException(id));
         modelMapper.map(playlistDTO, playlist);
         Playlist updatedPlaylist = playlistRepository.save(playlist);
         return modelMapper.map(updatedPlaylist, PlaylistDTO.class);
@@ -66,14 +67,12 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Transactional
     public PlaylistDTO addTracksToPlaylist(Long id, List<TrackDTO> trackDTOs) {
         Playlist playlist = playlistRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Playlist not found"));
+                .orElseThrow(() -> new PlaylistNotFoundException(id));
         List<Track> tracks = trackDTOs.stream()
                 .map(trackDTO -> trackRepository.findById(trackDTO.getId())
-                        .orElseThrow(() -> new RuntimeException("Track not found")))
+                        .orElseThrow(() -> new TrackNotFoundException(id)))
                 .collect(Collectors.toList());
-        playlist.getPlaylistTracks().addAll(tracks.stream()
-                .map(track -> new PlaylistTrack(playlist, track))
-                .collect(Collectors.toList()));
+        playlist.getTracks().addAll(tracks);
         Playlist updatedPlaylist = playlistRepository.save(playlist);
         return modelMapper.map(updatedPlaylist, PlaylistDTO.class);
     }
@@ -85,7 +84,7 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .orElseThrow(() -> new RuntimeException("Playlist not found"));
         Track track = trackRepository.findById(trackId)
                 .orElseThrow(() -> new RuntimeException("Track not found"));
-        playlist.getPlaylistTracks().removeIf(playlistTrack -> playlistTrack.getTrack().equals(track));
+        playlist.getTracks().remove(track);
         playlistRepository.save(playlist);
     }
 }

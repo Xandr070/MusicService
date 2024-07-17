@@ -1,6 +1,8 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -8,16 +10,16 @@ import java.util.List;
 public class Album extends BaseEntity {
 
     private String title;
-    private String releaseDate;
+    private LocalDateTime releaseDate;
     private String genre;
     private String description;
     private String tags;
     private Artist artist;
     private List<Track> tracks;
 
-    public Album(String title, String releaseDate, String genre, String description, String tags, Artist artist, List<Track> tracks) {
+    public Album(String title, String genre, String description, String tags, Artist artist, List<Track> tracks) {
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.releaseDate = LocalDateTime.now();
         this.genre = genre;
         this.description = description;
         this.tags = tags;
@@ -25,7 +27,8 @@ public class Album extends BaseEntity {
         this.tracks = tracks;
     }
 
-    protected Album() {}
+    protected Album() {
+    }
 
     public String getTitle() {
         return title;
@@ -35,11 +38,11 @@ public class Album extends BaseEntity {
         this.title = title;
     }
 
-    public String getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 

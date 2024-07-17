@@ -28,7 +28,6 @@ public class TimeCapsule extends BaseEntity {
     }
 
     protected TimeCapsule() {
-        this.creationDate = LocalDateTime.now();
     }
 
     public String getName() {

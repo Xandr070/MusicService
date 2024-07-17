@@ -1,21 +1,29 @@
 package com.example.musicservice.repository.impl;
 
+import com.example.musicservice.entities.Playlist;
 import com.example.musicservice.entities.Track;
+import com.example.musicservice.repository.GenericRepository;
 import com.example.musicservice.repository.TrackRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Transactional
-public class TrackRepositoryImpl implements TrackRepository {
+public class TrackRepositoryImpl extends GenericRepository<Track, Long> implements TrackRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<Track> findByGenre(String genre) {
+        return entityManager.createQuery("SELECT t FROM Track t WHERE t.genre = :genre", Track.class)
+                .setParameter("genre", genre)
+                .getResultList();
+    }
 
     @Override
     public Optional<Track> findById(Long id) {
@@ -36,6 +44,11 @@ public class TrackRepositoryImpl implements TrackRepository {
             entityManager.merge(track);
         }
         return track;
+    }
+
+    @Override
+    protected Class<Track> getEntityClass() {
+        return Track.class;
     }
 
     @Override

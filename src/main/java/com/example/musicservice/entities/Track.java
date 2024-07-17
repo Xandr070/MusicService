@@ -1,6 +1,8 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -10,23 +12,27 @@ public class Track extends BaseEntity {
     private String title;
     private String duration;
     private String genre;
-    private String releaseDate;
+    private LocalDateTime releaseDate;
     private String tags;
     private int playCount;
+    private int rating;
     private Album album;
     private Artist artist;
-    private List<PlaylistTrack> playlistTracks;
+    private List<Playlist> playlists;
+    private List<TimeCapsule> timeCapsules;
 
-    public Track(String title, String duration, String genre, String releaseDate, String tags, int playCount, Album album, Artist artist, List<PlaylistTrack> playlistTracks) {
+    public Track(String title, String duration, String genre, String tags, int playCount, int rating, Album album, Artist artist, List<Playlist> playlists, List<TimeCapsule> timeCapsules) {
         this.title = title;
         this.duration = duration;
         this.genre = genre;
-        this.releaseDate = releaseDate;
+        this.releaseDate = LocalDateTime.now();
         this.tags = tags;
         this.playCount = playCount;
+        this.rating = rating;
         this.album = album;
         this.artist = artist;
-        this.playlistTracks = playlistTracks;
+        this.playlists = playlists;
+        this.timeCapsules = timeCapsules;
     }
 
     protected Track() {}
@@ -55,11 +61,11 @@ public class Track extends BaseEntity {
         this.genre = genre;
     }
 
-    public String getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -77,6 +83,14 @@ public class Track extends BaseEntity {
 
     public void setPlayCount(int playCount) {
         this.playCount = playCount;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     @ManyToOne
@@ -99,12 +113,28 @@ public class Track extends BaseEntity {
         this.artist = artist;
     }
 
-    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
-    public List<PlaylistTrack> getPlaylistTracks() {
-        return playlistTracks;
+    @ManyToMany(mappedBy = "tracks")
+    public List<Playlist> getPlaylists() {
+        return playlists;
     }
 
-    public void setPlaylistTracks(List<PlaylistTrack> playlistTracks) {
-        this.playlistTracks = playlistTracks;
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    @ManyToMany(mappedBy = "tracks")
+    public List<TimeCapsule> getTimeCapsules() {
+        return timeCapsules;
+    }
+
+    public void setTimeCapsules(List<TimeCapsule> timeCapsules) {
+        this.timeCapsules = timeCapsules;
+    }
+
+    // Метод для вычисления редкости трека
+    @Transient
+    public int calculateRarity() {
+        // Простой пример вычисления: редкость = (количество прослушиваний / 100) * рейтинг
+        return (playCount / 100) * rating;
     }
 }

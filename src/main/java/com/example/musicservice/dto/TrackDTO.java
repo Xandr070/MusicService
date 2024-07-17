@@ -1,7 +1,5 @@
 package com.example.musicservice.dto;
 
-import java.util.List;
-
 public class TrackDTO {
     private Long id;
     private String title;
@@ -12,7 +10,6 @@ public class TrackDTO {
     private int playCount;
     private AlbumDTO album;
     private ArtistDTO artist;
-    private List<PlaylistTrackDTO> playlistTracks;
 
     public Long getId() {
         return id;
@@ -84,13 +81,5 @@ public class TrackDTO {
 
     public void setArtist(ArtistDTO artist) {
         this.artist = artist;
-    }
-
-    public List<PlaylistTrackDTO> getPlaylistTracks() {
-        return playlistTracks;
-    }
-
-    public void setPlaylistTracks(List<PlaylistTrackDTO> playlistTracks) {
-        this.playlistTracks = playlistTracks;
     }
 }

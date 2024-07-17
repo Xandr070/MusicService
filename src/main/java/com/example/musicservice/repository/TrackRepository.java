@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface TrackRepository {
 
+    List<Track> findByGenre(String genre);
+
     Optional<Track> findById(Long id);
 
     List<Track> findAll();

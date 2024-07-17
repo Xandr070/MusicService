@@ -4,7 +4,6 @@ import com.example.musicservice.entities.TimeCapsule;
 import com.example.musicservice.repository.GenericRepository;
 import com.example.musicservice.repository.TimeCapsuleRepository;
 import org.springframework.stereotype.Repository;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -33,15 +32,15 @@ public class TimeCapsuleRepositoryImpl extends GenericRepository<TimeCapsule, Lo
     }
 
     @Override
+    protected Class<TimeCapsule> getEntityClass() {
+        return TimeCapsule.class;
+    }
+
+    @Override
     public void deleteById(Long id) {
         TimeCapsule timeCapsule = findById(id).orElse(null);
         if (timeCapsule != null) {
             entityManager.remove(timeCapsule);
         }
-    }
-
-    @Override
-    protected Class getEntityClass() {
-        return null;
     }
 }
