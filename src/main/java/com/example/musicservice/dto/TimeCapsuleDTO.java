@@ -1,15 +1,17 @@
 package com.example.musicservice.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TimeCapsuleDTO {
     private Long id;
     private String name;
     private String description;
-    private String creationDate;
-    private String deliveryDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime deliveryDate;
     private UserDTO user;
     private List<TrackDTO> tracks;
+    private List<Long> sharedWith;
 
     public Long getId() {
         return id;
@@ -35,19 +37,19 @@ public class TimeCapsuleDTO {
         this.description = description;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getDeliveryDate() {
+    public LocalDateTime getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -65,5 +67,13 @@ public class TimeCapsuleDTO {
 
     public void setTracks(List<TrackDTO> tracks) {
         this.tracks = tracks;
+    }
+
+    public List<Long> getSharedWith() {
+        return sharedWith;
+    }
+
+    public void setSharedWith(List<Long> sharedWith) {
+        this.sharedWith = sharedWith;
     }
 }

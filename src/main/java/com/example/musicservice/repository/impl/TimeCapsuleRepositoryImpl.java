@@ -5,20 +5,43 @@ import com.example.musicservice.repository.GenericRepository;
 import com.example.musicservice.repository.TimeCapsuleRepository;
 import org.springframework.stereotype.Repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
-public class TimeCapsuleRepositoryImpl implements TimeCapsuleRepository {
+@Transactional
+public class TimeCapsuleRepositoryImpl extends GenericRepository<TimeCapsule, Long> implements TimeCapsuleRepository {
 
-    private GenericRepository<TimeCapsule, Long> genericRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Optional<TimeCapsule> findById(Long id) {
-        return genericRepository.findById(id);
+        return Optional.ofNullable(entityManager.find(TimeCapsule.class, id));
     }
 
     @Override
     public TimeCapsule save(TimeCapsule timeCapsule) {
-        return genericRepository.save(timeCapsule);
+        if (timeCapsule.getId() == null) {
+            entityManager.persist(timeCapsule);
+        } else {
+            entityManager.merge(timeCapsule);
+        }
+        return timeCapsule;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        TimeCapsule timeCapsule = findById(id).orElse(null);
+        if (timeCapsule != null) {
+            entityManager.remove(timeCapsule);
+        }
+    }
+
+    @Override
+    protected Class getEntityClass() {
+        return null;
     }
 }

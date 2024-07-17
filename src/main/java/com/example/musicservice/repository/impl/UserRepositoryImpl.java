@@ -9,9 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepositoryImpl extends GenericRepository implements UserRepository {
+public class UserRepositoryImpl extends GenericRepository<User, Long> implements UserRepository {
 
     private GenericRepository<User, Long> genericRepository;
+
+    @Override
+    public List<User> findAllById(Iterable<Long> ids) {
+        return List.of();
+    }
 
     @Override
     public Optional<User> findById(Long id) {

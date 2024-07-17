@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface TimeCapsuleRepository {
     Optional<TimeCapsule> findById(Long id);
     TimeCapsule save(TimeCapsule timeCapsule);
+    void deleteById(Long id);
 }

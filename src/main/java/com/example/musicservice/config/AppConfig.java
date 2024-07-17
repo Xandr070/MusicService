@@ -22,11 +22,6 @@ public class AppConfig {
     }
 
     @Bean
-    public PlaylistTrackRepository playlistTrackRepository() {
-        return new PlaylistTrackRepositoryImpl();
-    }
-
-    @Bean
     public TimeCapsuleRepository timeCapsuleRepository() {
         return new TimeCapsuleRepositoryImpl();
     }

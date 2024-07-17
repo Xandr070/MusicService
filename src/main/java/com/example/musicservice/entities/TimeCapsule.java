@@ -1,6 +1,8 @@
 package com.example.musicservice.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,21 +11,25 @@ public class TimeCapsule extends BaseEntity {
 
     private String name;
     private String description;
-    private String creationDate;
-    private String deliveryDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime deliveryDate;
     private User user;
     private List<Track> tracks;
+    private List<User> sharedWith;
 
-    public TimeCapsule(String name, String description, String creationDate, String deliveryDate, User user, List<Track> tracks) {
+    public TimeCapsule(String name, String description, LocalDateTime deliveryDate, User user, List<Track> tracks) {
         this.name = name;
         this.description = description;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDateTime.now();
         this.deliveryDate = deliveryDate;
         this.user = user;
         this.tracks = tracks;
+        this.sharedWith = new ArrayList<>();
     }
 
-    protected TimeCapsule() {}
+    protected TimeCapsule() {
+        this.creationDate = LocalDateTime.now();
+    }
 
     public String getName() {
         return name;
@@ -41,19 +47,19 @@ public class TimeCapsule extends BaseEntity {
         this.description = description;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getDeliveryDate() {
+    public LocalDateTime getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -79,5 +85,19 @@ public class TimeCapsule extends BaseEntity {
 
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "time_capsule_shared_with",
+            joinColumns = @JoinColumn(name = "time_capsule_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    public List<User> getSharedWith() {
+        return sharedWith;
+    }
+
+    public void setSharedWith(List<User> sharedWith) {
+        this.sharedWith = sharedWith;
     }
 }

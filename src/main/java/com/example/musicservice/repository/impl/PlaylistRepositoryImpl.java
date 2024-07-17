@@ -1,21 +1,16 @@
 package com.example.musicservice.repository.impl;
 
 import com.example.musicservice.entities.Playlist;
+import com.example.musicservice.repository.GenericRepository;
 import com.example.musicservice.repository.PlaylistRepository;
 import org.springframework.stereotype.Repository;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Transactional
-public class PlaylistRepositoryImpl implements PlaylistRepository {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class PlaylistRepositoryImpl extends GenericRepository<Playlist, Long> implements PlaylistRepository {
 
     @Override
     public Optional<Playlist> findById(Long id) {
@@ -45,5 +40,10 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         if (playlist != null) {
             entityManager.remove(playlist);
         }
+    }
+
+    @Override
+    protected Class getEntityClass() {
+        return null;
     }
 }
