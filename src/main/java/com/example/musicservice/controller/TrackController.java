@@ -1,6 +1,6 @@
 package com.example.musicservice.controller;
 
-import com.example.musicservice.dto.TrackDTO;
+import com.example.musicservice.services.dto.TrackDTO;
 import com.example.musicservice.services.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

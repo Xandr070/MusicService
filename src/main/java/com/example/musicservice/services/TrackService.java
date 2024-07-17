@@ -1,6 +1,6 @@
 package com.example.musicservice.services;
 
-import com.example.musicservice.dto.TrackDTO;
+import com.example.musicservice.services.dto.TrackDTO;
 
 import java.util.List;
 

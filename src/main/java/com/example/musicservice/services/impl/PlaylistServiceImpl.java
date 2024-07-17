@@ -1,7 +1,7 @@
 package com.example.musicservice.services.impl;
 
-import com.example.musicservice.dto.PlaylistDTO;
-import com.example.musicservice.dto.TrackDTO;
+import com.example.musicservice.services.dto.PlaylistDTO;
+import com.example.musicservice.services.dto.TrackDTO;
 import com.example.musicservice.entities.Playlist;
 import com.example.musicservice.entities.Track;
 import com.example.musicservice.exception.PlaylistNotFoundException;

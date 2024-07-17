@@ -1,6 +1,4 @@
-package com.example.musicservice.dto;
-
-import java.util.List;
+package com.example.musicservice.services.dto;
 
 public class PlaylistDTO {
     private Long id;

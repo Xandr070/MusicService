@@ -1,4 +1,4 @@
-package com.example.musicservice.dto;
+package com.example.musicservice.services.dto;
 
 public class TrackDTO {
     private Long id;

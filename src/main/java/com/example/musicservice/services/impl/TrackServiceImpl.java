@@ -1,6 +1,6 @@
 package com.example.musicservice.services.impl;
 
-import com.example.musicservice.dto.TrackDTO;
+import com.example.musicservice.services.dto.TrackDTO;
 import com.example.musicservice.entities.Track;
 import com.example.musicservice.repository.TrackRepository;
 import com.example.musicservice.services.TrackService;
