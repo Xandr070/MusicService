@@ -24,7 +24,6 @@ public class TimeCapsuleServiceImpl implements TimeCapsuleService {
     private final TrackRepository trackRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public TimeCapsuleServiceImpl(TimeCapsuleRepository timeCapsuleRepository, UserRepository userRepository, TrackRepository trackRepository, ModelMapper modelMapper) {
         this.timeCapsuleRepository = timeCapsuleRepository;
         this.userRepository = userRepository;
